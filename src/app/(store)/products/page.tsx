@@ -1,7 +1,6 @@
+import ProductsPageContent from "@/features/products/components/ProductsPageContent";
+import { ProductsPageSearchParams } from "@/features/products/types/ProductsSearchParams";
 import type { Metadata } from "next";
-import ProductsPageContent, {
-  type ProductsPageSearchParams,
-} from "@/features/products/components/ProductsPageContent";
 
 export const metadata: Metadata = {
   title: "Products",

@@ -2,57 +2,14 @@ import { Suspense } from "react";
 import ProductGrid from "./ProductGrid";
 import { ProductFilters } from "./ProductFilters";
 import type { ProductFilters as ProductFiltersParams } from "../types";
+import type { ProductsPageSearchParams } from "../types/ProductsSearchParams";
+import { getParamValue } from "../lib/getParamValue";
+import { toNumber } from "../lib/toNumber";
+import { toSort } from "../lib/toSort";
 
-type SearchParamValue = string | string[] | undefined;
-
-export type ProductsPageSearchParams = {
-  q?: SearchParamValue;
-  category?: SearchParamValue;
-  minPrice?: SearchParamValue;
-  maxPrice?: SearchParamValue;
-  sort?: SearchParamValue;
-  page?: SearchParamValue;
-};
-
-type ProductsPageContentProps = {
+interface ProductsPageContentProps {
   searchParams: ProductsPageSearchParams;
-};
-
-const SORT_VALUES: ProductFiltersParams["sort"][] = [
-  "newest",
-  "price_asc",
-  "price_desc",
-  "rating",
-];
-
-const getParamValue = (value: SearchParamValue): string | undefined => {
-  if (Array.isArray(value)) {
-    return value[0];
-  }
-
-  return value;
-};
-
-const toNumber = (value: string | undefined): number | undefined => {
-  if (!value) {
-    return undefined;
-  }
-
-  const parsed = Number(value);
-  return Number.isNaN(parsed) ? undefined : parsed;
-};
-
-const toSort = (
-  value: string | undefined,
-): ProductFiltersParams["sort"] | undefined => {
-  if (!value) {
-    return undefined;
-  }
-
-  return SORT_VALUES.includes(value as ProductFiltersParams["sort"])
-    ? (value as ProductFiltersParams["sort"])
-    : undefined;
-};
+}
 
 export default function ProductsPageContent({
   searchParams,
