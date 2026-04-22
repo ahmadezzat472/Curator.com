@@ -9,8 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRegister } from "../hooks/useRegister";
 import { RegisterFormValues, registerSchema } from "../validation";
-import InputError from "@/components/shared/InputError";
-import { REGISTER_DEFAULT_VALUE } from "../constants";
+import InputError from "@/components/shared/Feedback/InputError";
+import { REGISTER_DEFAULT_VALUE } from "../constants/default-values";
 
 const RegisterForm = () => {
   const { mutate: register_, isPending } = useRegister();

@@ -19,7 +19,7 @@ export const productsService = {
     api<ApiResponse<Product[]>>(`products${toParams(filters)}`),
 
   getBySlug: (slug: string): Promise<Product> =>
-    api<Product>(`products/${slug}`),
+    api<Product>(`products?slug=${slug}`),
 
   getCategories: (): Promise<Category[]> =>
     api<Category[]>("categories", {

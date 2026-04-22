@@ -9,8 +9,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useLogin } from "../hooks/useLogin";
 import { LoginFormValues, loginSchema } from "../validation";
-import InputError from "@/components/shared/InputError";
-import { LOGIN_DEFAULT_VALUE } from "../constants";
+import InputError from "@/components/shared/Feedback/InputError";
+import { LOGIN_DEFAULT_VALUE } from "../constants/default-values";
 
 const LoginForm = () => {
   const { mutate: login, isPending } = useLogin();
