@@ -1,0 +1,240 @@
+{
+  "products": {
+    "success": true,
+    "message": "Products retrieved successfully",
+    "meta": {
+      "total": 8,
+      "pages": 1,
+      "currentPage": 1
+    },
+    "data": [
+      {
+        "id": "1",
+        "slug": "wireless-headphones",
+        "name": "Premium Wireless Headphones",
+        "description": "High-quality sound with noise cancellation, 30-hour battery life, and comfortable padding for all-day wear.",
+        "price": 199.99,
+        "comparePrice": 299.99,
+        "stock": 50,
+        "images": [
+          "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop",
+          "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=500&h=500&fit=crop"
+        ],
+        "category": {
+          "id": "electronics",
+          "name": "Electronics",
+          "slug": "electronics"
+        },
+        "seller": {
+          "id": "seller1",
+          "name": "TechHub",
+          "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=TechHub"
+        },
+        "rating": 4.8,
+        "reviewCount": 234,
+        "isFeatured": true
+      },
+      {
+        "id": "2",
+        "slug": "smart-watch",
+        "name": "Smart Watch Pro",
+        "description": "Track your fitness, monitor heart rate, receive notifications, and stay connected on the go.",
+        "price": 249.99,
+        "comparePrice": 349.99,
+        "stock": 35,
+        "images": [
+          "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop"
+        ],
+        "category": {
+          "id": "electronics",
+          "name": "Electronics",
+          "slug": "electronics"
+        },
+        "seller": {
+          "id": "seller2",
+          "name": "SmartTech",
+          "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=SmartTech"
+        },
+        "rating": 4.6,
+        "reviewCount": 189,
+        "isFeatured": true
+      },
+      {
+        "id": "3",
+        "slug": "portable-speaker",
+        "name": "Portable Bluetooth Speaker",
+        "description": "Compact design with powerful 360-degree sound, waterproof, and 15-hour battery.",
+        "price": 79.99,
+        "comparePrice": 129.99,
+        "stock": 100,
+        "images": [
+          "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&h=500&fit=crop"
+        ],
+        "category": {
+          "id": "electronics",
+          "name": "Electronics",
+          "slug": "electronics"
+        },
+        "seller": {
+          "id": "seller1",
+          "name": "TechHub",
+          "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=TechHub"
+        },
+        "rating": 4.5,
+        "reviewCount": 412,
+        "isFeatured": true
+      },
+      {
+        "id": "4",
+        "slug": "usb-c-cable",
+        "name": "Premium USB-C Cable",
+        "description": "Fast charging and data transfer cable, 2-meter length, durable nylon braided.",
+        "price": 14.99,
+        "comparePrice": 24.99,
+        "stock": 500,
+        "images": [
+          "https://images.unsplash.com/photo-1625948515291-69613efd103f?w=500&h=500&fit=crop"
+        ],
+        "category": {
+          "id": "accessories",
+          "name": "Accessories",
+          "slug": "accessories"
+        },
+        "seller": {
+          "id": "seller3",
+          "name": "AccessoryPro",
+          "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=AccessoryPro"
+        },
+        "rating": 4.7,
+        "reviewCount": 892,
+        "isFeatured": true
+      },
+      {
+        "id": "5",
+        "slug": "webcam-hd",
+        "name": "HD Webcam 1080p",
+        "description": "Crystal clear 1080p video with built-in microphone, perfect for streaming and calls.",
+        "price": 59.99,
+        "comparePrice": 89.99,
+        "stock": 45,
+        "images": [
+          "https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500&h=500&fit=crop"
+        ],
+        "category": {
+          "id": "electronics",
+          "name": "Electronics",
+          "slug": "electronics"
+        },
+        "seller": {
+          "id": "seller2",
+          "name": "SmartTech",
+          "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=SmartTech"
+        },
+        "rating": 4.4,
+        "reviewCount": 156,
+        "isFeatured": false
+      },
+      {
+        "id": "6",
+        "slug": "keyboard-mechanical",
+        "name": "Mechanical Gaming Keyboard",
+        "description": "RGB lighting, hot-swappable switches, aluminum frame, and ergonomic design.",
+        "price": 139.99,
+        "comparePrice": 199.99,
+        "stock": 28,
+        "images": [
+          "https://images.unsplash.com/photo-1587829191301-72ec88e3d4cc?w=500&h=500&fit=crop"
+        ],
+        "category": {
+          "id": "electronics",
+          "name": "Electronics",
+          "slug": "electronics"
+        },
+        "seller": {
+          "id": "seller1",
+          "name": "TechHub",
+          "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=TechHub"
+        },
+        "rating": 4.9,
+        "reviewCount": 342,
+        "isFeatured": true
+      },
+      {
+        "id": "7",
+        "slug": "mouse-wireless",
+        "name": "Wireless Mouse Pro",
+        "description": "Precision tracking, silent clicking, long battery life, and ergonomic shape.",
+        "price": 34.99,
+        "comparePrice": 49.99,
+        "stock": 75,
+        "images": [
+          "https://images.unsplash.com/photo-1527814050087-3793815479db?w=500&h=500&fit=crop"
+        ],
+        "category": {
+          "id": "accessories",
+          "name": "Accessories",
+          "slug": "accessories"
+        },
+        "seller": {
+          "id": "seller3",
+          "name": "AccessoryPro",
+          "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=AccessoryPro"
+        },
+        "rating": 4.6,
+        "reviewCount": 523,
+        "isFeatured": true
+      },
+      {
+        "id": "8",
+        "slug": "laptop-stand",
+        "name": "Adjustable Laptop Stand",
+        "description": "Ergonomic design, adjustable height and angle, supports up to 17-inch laptops.",
+        "price": 44.99,
+        "comparePrice": 69.99,
+        "stock": 62,
+        "images": [
+          "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500&h=500&fit=crop"
+        ],
+        "category": {
+          "id": "accessories",
+          "name": "Accessories",
+          "slug": "accessories"
+        },
+        "seller": {
+          "id": "seller2",
+          "name": "SmartTech",
+          "avatar": "https://api.dicebear.com/7.x/avataaars/svg?seed=SmartTech"
+        },
+        "rating": 4.7,
+        "reviewCount": 267,
+        "isFeatured": false
+      }
+    ]
+  },
+  "categories": [
+    {
+      "id": "electronics",
+      "name": "Electronics",
+      "slug": "electronics",
+      "image": "https://images.unsplash.com/photo-1550355291-bbee04a92027?w=500&h=500&fit=crop"
+    },
+    {
+      "id": "accessories",
+      "name": "Accessories",
+      "slug": "accessories",
+      "image": "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500&h=500&fit=crop"
+    },
+    {
+      "id": "fashion",
+      "name": "Fashion",
+      "slug": "fashion",
+      "image": "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=500&h=500&fit=crop"
+    },
+    {
+      "id": "home",
+      "name": "Home & Living",
+      "slug": "home",
+      "image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&h=500&fit=crop"
+    }
+  ]
+}
