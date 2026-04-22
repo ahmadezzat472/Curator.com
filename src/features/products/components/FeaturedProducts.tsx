@@ -1,4 +1,4 @@
-import SuspenseLayoutHOC from "@/components/shared/SuspenseLayoutHOC";
+import SuspenseLayoutHOC from "@/components/hoc/SuspenseLayoutHOC";
 import { Button } from "@/components/ui/button";
 import ProductCard from "@/features/products/components/ProductCard";
 import { productsService } from "@/features/products/services";
