@@ -1,4 +1,3 @@
-import { Suspense } from "react";
 import ProductGrid from "../components/ProductGrid";
 import ProductFilters from "../components/ProductFilters";
 import type { ProductFilters as ProductFiltersParams } from "../types";
@@ -38,9 +37,7 @@ export default function ProductsContainer({
       </h1>
 
       <div className="flex gap-8">
-        <Suspense fallback={<div className="w-64 shrink-0" />}>
-          <ProductFilters />
-        </Suspense>
+        <ProductFilters />
 
         <div className="flex-1">
           <ProductGrid filters={filters} />

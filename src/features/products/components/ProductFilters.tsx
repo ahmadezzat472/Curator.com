@@ -4,8 +4,8 @@ import { useCategories } from "@/features/products/hooks/useCategories";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import SuspenseLayoutHOC from "@/components/hoc/SuspenseLayoutHOC";
-import ProductFiltersSkeleton from "./skeletons/ProductFiltersSkeleton";
+// import SuspenseLayoutHOC from "@/components/hoc/SuspenseLayoutHOC";
+// import ProductFiltersSkeleton from "./skeletons/ProductFiltersSkeleton";
 import { useSetParam } from "@/hooks/useSetParam";
 import { useSearchParams } from "next/navigation";
 import { SORT_OPTIONS } from "../constants/sortOptions";
@@ -115,4 +115,5 @@ function ProductFilters() {
   );
 }
 
-export default SuspenseLayoutHOC(ProductFilters, ProductFiltersSkeleton);
+// export default SuspenseLayoutHOC(ProductFilters, ProductFiltersSkeleton);
+export default ProductFilters;
