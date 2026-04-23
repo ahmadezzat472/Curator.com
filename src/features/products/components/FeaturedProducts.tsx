@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import ProductCard from "@/features/products/components/ProductCard";
 import { productsService } from "@/features/products/services";
 import Link from "next/link";
-import FeaturedProductsSkeleton from "./FeaturedProductsSkeleton";
+import FeaturedProductsSkeleton from "./skeletons/FeaturedProductsSkeleton";
 
 async function FeaturedProducts() {
   const products = await productsService.getAll();

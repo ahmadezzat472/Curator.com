@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { productsService } from "@/features/products/services";
-import ProductDetailPageContent from "@/features/products/components/ProductDetailPageContent";
+import ProductDetailContainer from "@/features/products/pages/ProductDetailContainer";
 
 type Props = { params: Promise<{ slug: string }> };
 
-// Generate metadata from the product data
+//** metadata
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
     const { slug } = await params;
@@ -21,5 +21,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProductDetailPage({ params }: Props) {
   const { slug } = await params;
 
-  return <ProductDetailPageContent slug={slug} />;
+  return <ProductDetailContainer slug={slug} />;
 }

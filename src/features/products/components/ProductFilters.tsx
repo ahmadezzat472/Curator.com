@@ -1,49 +1,23 @@
 "use client";
-// CLIENT because: manages URL search params on user interaction,
-// uses useSearchParams, useRouter — all browser/navigation APIs
 
-import { useCallback } from "react";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useCategories } from "@/features/products/hooks/useCategories";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import SuspenseLayoutHOC from "@/components/hoc/SuspenseLayoutHOC";
+import ProductFiltersSkeleton from "./skeletons/ProductFiltersSkeleton";
+import { useSetParam } from "@/hooks/useSetParam";
+import { useSearchParams } from "next/navigation";
+import { SORT_OPTIONS } from "../constants/sortOptions";
+import { SEARCH_PARAMS_KEYS } from "../constants/searchParamsKeys";
 
-const SORT_OPTIONS = [
-  { value: "newest", label: "Newest" },
-  { value: "price_asc", label: "Price: Low to High" },
-  { value: "price_desc", label: "Price: High to Low" },
-  { value: "rating", label: "Top Rated" },
-];
-
-export function ProductFilters() {
-  const router = useRouter();
-  const pathname = usePathname();
+function ProductFilters() {
   const searchParams = useSearchParams();
+  const { setParam, clearAll, hasActiveFilters } = useSetParam();
+
   const { data: categories } = useCategories();
 
-  // Generic helper — updates one param and preserves the rest
-  const setParam = useCallback(
-    (key: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      if (value) {
-        params.set(key, value);
-      } else {
-        params.delete(key);
-      }
-      params.delete("page"); // reset to page 1 on any filter change
-      router.push(`${pathname}?${params.toString()}`);
-    },
-    [searchParams, router, pathname],
-  );
-
-  const clearAll = () => router.push(pathname);
-
-  const hasActiveFilters =
-    searchParams.has("category") ||
-    searchParams.has("minPrice") ||
-    searchParams.has("maxPrice") ||
-    searchParams.has("sort");
+  const isFiltered = hasActiveFilters(...SEARCH_PARAMS_KEYS);
 
   return (
     <aside className="w-64 shrink-0 space-y-6">
@@ -127,11 +101,11 @@ export function ProductFilters() {
         </div>
       </div>
 
-      {hasActiveFilters && (
+      {isFiltered && (
         <Button
-          variant="ghost"
+          variant="secondary"
           size="sm"
-          className="w-full text-muted-foreground"
+          className="w-full "
           onClick={clearAll}
         >
           Clear all filters
@@ -140,3 +114,5 @@ export function ProductFilters() {
     </aside>
   );
 }
+
+export default SuspenseLayoutHOC(ProductFilters, ProductFiltersSkeleton);

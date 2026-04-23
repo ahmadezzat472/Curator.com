@@ -1,4 +1,4 @@
-import ProductsPageContent from "@/features/products/components/ProductsPageContent";
+import ProductsContainer from "@/features/products/pages/ProductsContainer";
 import { ProductsPageSearchParams } from "@/features/products/types/ProductsSearchParams";
 import type { Metadata } from "next";
 
@@ -14,5 +14,5 @@ type Props = {
 export default async function ProductsPage({ searchParams }: Props) {
   const resolvedSearchParams = await searchParams;
 
-  return <ProductsPageContent searchParams={resolvedSearchParams} />;
+  return <ProductsContainer searchParams={resolvedSearchParams} />;
 }

@@ -6,7 +6,7 @@ import { productsService } from "../services";
 // import { WishlistButton } from "./WishlistButton";
 // import { ReviewsSection } from "@/features/reviews/components/ReviewsSection";
 
-type ProductDetailPageContentProps = {
+type ProductDetailContainerProps = {
   slug: string;
 };
 
@@ -18,10 +18,37 @@ async function getProduct(slug: string) {
   }
 }
 
-export default async function ProductDetailPageContent({
+export default async function ProductDetailContainer({
   slug,
-}: ProductDetailPageContentProps) {
-  const product = await getProduct(slug);
+}: ProductDetailContainerProps) {
+  // const product = await getProduct(slug);
+  const product = {
+    id: "1",
+    slug: "wireless-headphones",
+    name: "Premium Wireless Headphones",
+    description:
+      "High-quality sound with noise cancellation, 30-hour battery life, and comfortable padding for all-day wear.",
+    price: 199.99,
+    comparePrice: 299.99,
+    stock: 50,
+    images: [
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop",
+      "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=500&h=500&fit=crop",
+    ],
+    category: {
+      id: "electronics",
+      name: "Electronics",
+      slug: "electronics",
+    },
+    seller: {
+      id: "seller1",
+      name: "TechHub",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=TechHub",
+    },
+    rating: 4.8,
+    reviewCount: 234,
+    isFeatured: true,
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
