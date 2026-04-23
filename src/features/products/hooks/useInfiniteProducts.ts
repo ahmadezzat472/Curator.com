@@ -13,7 +13,7 @@ export function useInfiniteProducts(filters?: Omit<ProductFilters, "page">) {
       productsService.getAll({ ...filters, page: pageParam, limit: 12 }),
     {
       getNextPageParam: (lastPage, allPages) =>
-        allPages.length < lastPage.pages ? allPages.length + 1 : undefined,
+        allPages.length < lastPage.meta.pages ? allPages.length + 1 : undefined,
       staleTime: 1000 * 60 * 5,
     },
   );
