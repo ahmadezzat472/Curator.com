@@ -1,19 +1,18 @@
-import { Suspense } from "react";
-import ProductGrid from "./ProductGrid";
-import { ProductFilters } from "./ProductFilters";
+import ProductGrid from "../components/ProductGrid";
+import ProductFilters from "../components/ProductFilters";
 import type { ProductFilters as ProductFiltersParams } from "../types";
 import type { ProductsPageSearchParams } from "../types/ProductsSearchParams";
 import { getParamValue } from "../lib/getParamValue";
 import { toNumber } from "../lib/toNumber";
 import { toSort } from "../lib/toSort";
 
-interface ProductsPageContentProps {
+interface ProductsContainerProps {
   searchParams: ProductsPageSearchParams;
 }
 
-export default function ProductsPageContent({
+export default function ProductsContainer({
   searchParams,
-}: ProductsPageContentProps) {
+}: ProductsContainerProps) {
   const q = getParamValue(searchParams.q);
   const category = getParamValue(searchParams.category);
   const minPrice = toNumber(getParamValue(searchParams.minPrice));
@@ -38,9 +37,7 @@ export default function ProductsPageContent({
       </h1>
 
       <div className="flex gap-8">
-        <Suspense fallback={<div className="w-64 shrink-0" />}>
-          <ProductFilters />
-        </Suspense>
+        <ProductFilters />
 
         <div className="flex-1">
           <ProductGrid filters={filters} />
