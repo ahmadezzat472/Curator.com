@@ -1,3 +1,4 @@
+import { NotFoundError } from "@/lib/api/errors";
 import { User } from "@/lib/db/models/User";
 
 async function createUser(
@@ -36,7 +37,7 @@ export async function invalidateRefreshTokens(userId: string) {
 
 async function updatePassword(userId: string, newPassword: string) {
   const user = await User.findById(userId).select("+password").exec();
-  if (!user) throw new Error("User not found");
+  if (!user) throw new NotFoundError("User not found");
   user.password = newPassword;
   await user.save();
 }

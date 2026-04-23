@@ -3,6 +3,7 @@ import { RegisterDto, LoginDto } from "./auth.dto";
 import { signAccessToken, signRefreshToken } from "@/lib/auth/jwt";
 import { hashRefreshToken, newJti, newTokenFamily } from "@/lib/auth/tokens";
 import type { IUser } from "@/lib/db/models/User";
+import { BadRequestError, UnauthorizedError } from "@/lib/api/errors";
 
 export type PublicUser = {
   id: string;
@@ -46,7 +47,7 @@ export async function issueTokens(user: IUser) {
 export async function register(data: RegisterDto) {
   const existingUser = await authRepository.findUserByEmail(data.email);
   if (existingUser) {
-    throw new Error("Email already in use");
+    throw new BadRequestError("Email already in use");
   }
   const user = await authRepository.createUser(
     data.name,
@@ -61,11 +62,11 @@ export async function register(data: RegisterDto) {
 export async function login(data: LoginDto) {
   const user = await authRepository.findUserByEmailWithPassword(data.email);
   if (!user) {
-    throw new Error("Invalid email or password");
+    throw new UnauthorizedError("Invalid email or password");
   }
   const isPasswordValid = await user.verifyPassword(data.password);
   if (!isPasswordValid) {
-    throw new Error("Invalid email or password");
+    throw new UnauthorizedError("Invalid email or password");
   }
   const tokens = await issueTokens(user);
   return { user: toPublicUser(user), ...tokens };
