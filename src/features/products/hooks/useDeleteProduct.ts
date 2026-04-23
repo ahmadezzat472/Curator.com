@@ -6,7 +6,6 @@ import { useApiMutation } from "@/hooks/useApiMutation";
 import { productsService } from "../services";
 import { QUERY_KEYS } from "@/constants/Querykeys";
 
-// ─── Delete product (seller/admin) ────────────────────────────────────────────
 export function useDeleteProduct() {
   const queryClient = useQueryClient();
 
