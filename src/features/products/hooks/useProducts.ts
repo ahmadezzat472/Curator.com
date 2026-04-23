@@ -5,7 +5,6 @@ import { productsService } from "../services";
 import { QUERY_KEYS } from "@/constants/Querykeys";
 import type { ProductFilters } from "../types";
 
-// ─── Get single page of products (for pages with standard pagination) ─────────
 export function useProducts(filters?: ProductFilters) {
   return useApiQuery(
     QUERY_KEYS.products.list(filters),
