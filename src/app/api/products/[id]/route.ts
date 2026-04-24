@@ -3,6 +3,7 @@ import { productsService } from "@/features/products/products.service";
 import { NotFoundError } from "@/lib/api/errors";
 import { handleRouteError, noContent, ok } from "@/lib/api/response";
 import { ObjectIdSchema } from "@/lib/api/validation";
+import { requireRoles } from "@/lib/rbac/guards";
 
 type RouteContext = { params: Promise<{ id: string }> };
 
@@ -20,6 +21,7 @@ export async function GET(_: Request, { params }: RouteContext) {
 
 export async function PATCH(request: Request, { params }: RouteContext) {
   try {
+    await requireRoles("vendor", "admin");
     const { id } = await params;
     const productId = ObjectIdSchema.parse(id);
     const body = await request.json();
@@ -34,6 +36,7 @@ export async function PATCH(request: Request, { params }: RouteContext) {
 
 export async function DELETE(_: Request, { params }: RouteContext) {
   try {
+    await requireRoles("vendor", "admin");
     const { id } = await params;
     const productId = ObjectIdSchema.parse(id);
     await productsService.deleteProductById(productId);
