@@ -10,7 +10,7 @@ async function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
-      <div className="custom-container flex h-14 items-center gap-4">
+      <div className="relative custom-container flex h-14 items-center gap-4">
         {/* Logo */}
         <Link
           href="/"
@@ -20,7 +20,7 @@ async function Header() {
         </Link>
 
         {/* Search — CLIENT: needs onChange/debounce */}
-        <div className="flex-1 max-w-xl">
+        <div className="flex-1 max-w-xs">
           <SearchBar />
         </div>
 
@@ -34,10 +34,12 @@ async function Header() {
           </Link>
 
           {/* Cart — CLIENT: needs cart count from React Query */}
-          <CartButton />
+          <div className="hidden sm:block">
+            <CartButton />
+          </div>
 
           {/* User menu — CLIENT: needs logout mutation */}
-          <UserMenu isLoggedIn={isLoggedIn} username={username} />
+          <UserMenu isLoggedIn={true} username={"ahmed"} />
         </nav>
       </div>
     </header>
