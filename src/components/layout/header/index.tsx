@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { cookies } from "next/headers";
-import CartButton from "./CartButton";
+// import CartButton from "./CartButton";
 import SearchBar from "./SearchBar";
 import UserMenu from "./UserMenu";
+import CartDrawer from "@/features/cart/components/CartDrawer";
 
 async function Header() {
   const username = (await cookies()).get("username")?.value;
@@ -35,11 +36,12 @@ async function Header() {
 
           {/* Cart — CLIENT: needs cart count from React Query */}
           <div className="hidden sm:block">
-            <CartButton />
+            {/* <CartButton /> */}
+            <CartDrawer />
           </div>
 
           {/* User menu — CLIENT: needs logout mutation */}
-          <UserMenu isLoggedIn={true} username={"ahmed"} />
+          <UserMenu isLoggedIn={isLoggedIn} username={username} />
         </nav>
       </div>
     </header>

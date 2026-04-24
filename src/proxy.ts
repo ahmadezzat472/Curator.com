@@ -24,7 +24,7 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const token = request.cookies.get("token")?.value || "ddd";
-  const role = request.cookies.get("role")?.value as UserRole || "CUSTOMER";
+  const role = request.cookies.get("role")?.value as UserRole | undefined;
 
   const isProtected = PROTECTED_ROUTES.some((r) => pathname.startsWith(r));
   const isSeller = SELLER_ROUTES.some((r) => pathname.startsWith(r));
