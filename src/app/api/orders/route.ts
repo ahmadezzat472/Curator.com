@@ -1,5 +1,5 @@
-import { CreateUserSchema } from "@/features/users/users.dto";
-import { usersService } from "@/features/users/users.service";
+import { CreateOrderSchema } from "@/features/orders/orders.dto";
+import { ordersService } from "@/features/orders/orders.service";
 import { created, handleRouteError, paginated } from "@/lib/api/response";
 import { PaginationSchema } from "@/lib/api/validation";
 
@@ -9,7 +9,10 @@ export async function GET(request: Request) {
     const { page, pageSize } = PaginationSchema.parse(
       Object.fromEntries(searchParams),
     );
-    const { items, total } = await usersService.getAllUsers({ page, pageSize });
+    const { items, total } = await ordersService.getAllOrders({
+      page,
+      pageSize,
+    });
     return paginated(items, page, pageSize, total);
   } catch (error) {
     return handleRouteError(error);
@@ -19,9 +22,9 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const data = CreateUserSchema.parse(body);
-    const newUser = await usersService.createUser(data);
-    return created(newUser);
+    const data = CreateOrderSchema.parse(body);
+    const order = await ordersService.createOrder(data);
+    return created(order);
   } catch (error) {
     return handleRouteError(error);
   }

@@ -19,8 +19,21 @@ export async function getUserById(id: string) {
   return User.findById(id).exec();
 }
 
-export async function getAllUsers() {
-  return User.find().exec();
+export async function getAllUsers({
+  page,
+  pageSize,
+}: {
+  page: number;
+  pageSize: number;
+}) {
+  const [items, total] = await Promise.all([
+    User.find()
+      .skip((page - 1) * pageSize)
+      .limit(pageSize)
+      .exec(),
+    User.countDocuments().exec(),
+  ]);
+  return { items, total };
 }
 
 export async function deleteUserById(id: string) {

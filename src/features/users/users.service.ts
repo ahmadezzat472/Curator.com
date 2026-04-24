@@ -18,8 +18,8 @@ export async function getUserById(id: string) {
   return usersRepository.getUserById(id);
 }
 
-export async function getAllUsers() {
-  return usersRepository.getAllUsers();
+export async function getAllUsers(params: { page: number; pageSize: number }) {
+  return usersRepository.getAllUsers(params);
 }
 
 export async function deleteUserById(id: string) {
