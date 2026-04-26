@@ -1,9 +1,11 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { useLogout } from "@/features/auth/hooks/useLogout";
+import { USER_LINK_PAGES } from "@/features/user/constants/link-pages";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
-import { FiUser, FiLogOut, FiPackage, FiHeart } from "react-icons/fi";
+import { FiLogOut, FiUser } from "react-icons/fi";
 
 type Props = {
   isLoggedIn: boolean;
@@ -15,7 +17,6 @@ function UserMenu({ isLoggedIn, username }: Props) {
   const menuRef = useRef<HTMLDivElement>(null);
   const { mutate: logout, isPending } = useLogout();
 
-  // Close on outside click
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
@@ -46,61 +47,47 @@ function UserMenu({ isLoggedIn, username }: Props) {
   }
 
   return (
-    <div className="relative" ref={menuRef}>
+    <div className="" ref={menuRef}>
       <button
         onClick={() => setOpen((prev) => !prev)}
-        className="flex items-center gap-2 h-9 px-2 rounded-md hover:bg-accent transition-colors"
-        aria-haspopup="true"
-        aria-expanded={open}
+        className="cursor-pointer w-8 h-8 rounded-full border border-primary/30 bg-primary/10 flex items-center justify-center group hover:bg-primary/20 transition-all"
       >
-        <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center">
-          <FiUser size={14} className="text-primary" />
-        </div>
-        <span className="text-sm font-medium hidden sm:block max-w-25 truncate">
-          {username}
-        </span>
+        <FiUser
+          size={14}
+          className="text-primary group-hover:font-bold transition-all"
+        />
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-1 w-48 rounded-lg border bg-popover shadow-md py-1 z-50">
-          <Link
-            href="/profile"
-            className="flex items-center gap-2 px-3 py-2 text-sm hover:bg-accent transition-colors"
-            onClick={() => setOpen(false)}
-          >
-            <FiUser size={14} />
-            My Profile
-          </Link>
-          <Link
-            href="/orders"
-            className="flex items-center gap-2 px-3 py-2 text-sm hover:bg-accent transition-colors"
-            onClick={() => setOpen(false)}
-          >
-            <FiPackage size={14} />
-            My Orders
-          </Link>
-          <Link
-            href="/wishlist"
-            className="flex items-center gap-2 px-3 py-2 text-sm hover:bg-accent transition-colors"
-            onClick={() => setOpen(false)}
-          >
-            <FiHeart size={14} />
-            Wishlist
-          </Link>
+        <div className="absolute right-4 top-full w-48 rounded-lg border bg-popover shadow-md py-1 z-50">
+          <span className="text-sm font-medium text-center max-w-25 truncate">
+            {username}
+          </span>
+          {USER_LINK_PAGES.map(({ href, icon: Icon, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className="flex items-center gap-2 px-3 py-2 text-sm hover:bg-accent transition-colors"
+              onClick={() => setOpen(false)}
+            >
+              <Icon size={14} />
+              {label}
+            </Link>
+          ))}
 
           <div className="my-1 border-t" />
 
-          <button
+          <Button
             onClick={() => {
               setOpen(false);
               logout();
             }}
             disabled={isPending}
-            className="flex w-full items-center gap-2 px-3 py-2 text-sm text-destructive hover:bg-accent transition-colors"
+            variant={"destructive"}
           >
             <FiLogOut size={14} />
             {isPending ? "Logging out..." : "Log out"}
-          </button>
+          </Button>
         </div>
       )}
     </div>
