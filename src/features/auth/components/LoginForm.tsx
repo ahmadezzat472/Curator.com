@@ -28,7 +28,6 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
-      {/* Email */}
       <div className="space-y-1.5">
         <Label htmlFor="email">Email address</Label>
         <div className="relative">
@@ -49,16 +48,9 @@ const LoginForm = () => {
         {errors.email && <InputError error={errors.email.message} />}
       </div>
 
-      {/* Password */}
       <div className="space-y-1.5">
         <div className="flex items-center justify-between">
           <Label htmlFor="password">Password</Label>
-          <Link
-            href="/forgot-password"
-            className="text-xs text-muted-foreground hover:text-primary transition-colors"
-          >
-            Forgot password?
-          </Link>
         </div>
         <div className="relative">
           <FaLock
@@ -78,8 +70,13 @@ const LoginForm = () => {
         {errors.password && <InputError error={errors.password.message} />}
       </div>
 
-      <Button type="submit" className="w-full" disabled={isPending}>
-        {isPending ? "Signing in..." : "Sign in"}
+      <Button
+        type="submit"
+        className="w-full"
+        disabled={isPending}
+        isLoading={isPending}
+      >
+        Sign in
       </Button>
 
       <p className="text-center text-sm text-muted-foreground">

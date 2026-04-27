@@ -37,7 +37,6 @@ const RegisterForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
-      {/* Name */}
       <div className="space-y-1.5">
         <Label htmlFor="name">Full name</Label>
         <div className="relative">
@@ -58,7 +57,6 @@ const RegisterForm = () => {
         {errors.name && <InputError error={errors.name.message} />}
       </div>
 
-      {/* Email */}
       <div className="space-y-1.5">
         <Label htmlFor="email">Email address</Label>
         <div className="relative">
@@ -79,7 +77,6 @@ const RegisterForm = () => {
         {errors.email && <InputError error={errors.email.message} />}
       </div>
 
-      {/* Password */}
       <div className="space-y-1.5">
         <Label htmlFor="password">Password</Label>
         <div className="relative">
@@ -100,7 +97,6 @@ const RegisterForm = () => {
         {errors.password && <InputError error={errors.password.message} />}
       </div>
 
-      {/* Confirm Password */}
       <div className="space-y-1.5">
         <Label htmlFor="confirmPassword">Confirm password</Label>
         <div className="relative">
@@ -144,8 +140,13 @@ const RegisterForm = () => {
         {errors.role && <InputError error={errors.role.message} />}
       </div>
 
-      <Button type="submit" className="w-full" disabled={isPending}>
-        {isPending ? "Creating account..." : "Create account"}
+      <Button
+        type="submit"
+        className="w-full"
+        disabled={isPending}
+        isLoading={isPending}
+      >
+        Create account
       </Button>
 
       <p className="text-center text-sm text-muted-foreground">

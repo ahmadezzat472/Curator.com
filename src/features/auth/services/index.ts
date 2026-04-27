@@ -45,19 +45,4 @@ export const authService = {
       body: JSON.stringify(payload),
     });
   },
-
-  forgotPassword: (email: string): Promise<{ message: string }> =>
-    api<{ message: string }>("auth/forgot-password", {
-      method: "POST",
-      body: JSON.stringify({ email }),
-    }),
-
-  resetPassword: (payload: {
-    token: string;
-    password: string;
-  }): Promise<{ message: string }> =>
-    api<{ message: string }>("auth/reset-password", {
-      method: "POST",
-      body: JSON.stringify(payload),
-    }),
 };
