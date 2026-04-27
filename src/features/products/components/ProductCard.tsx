@@ -26,7 +26,7 @@ function ProductCard({ product }: Props) {
         className="relative aspect-square overflow-hidden bg-muted"
       >
         <Image
-          src={product.images[0]}
+          src={product.images[0] || "/no-img.png"}
           alt={product.name}
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"

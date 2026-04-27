@@ -21,8 +21,8 @@ export const productsService = {
   getBySlug: (slug: string): Promise<Product> =>
     api<Product>(`products?slug=${slug}`),
 
-  getCategories: (): Promise<Category[]> =>
-    api<Category[]>("categories", {
+  getCategories: (): Promise<ApiResponse<Category[]>> =>
+    api<ApiResponse<Category[]>>("categories", {
       next: { revalidate: 3600 }, // categories rarely change — 1 hour
     }),
 

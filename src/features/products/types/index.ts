@@ -1,27 +1,31 @@
+import { User } from "@/features/auth/types";
+
 export type Category = {
-  id: string;
+  _id: string;
   name: string;
   slug: string;
-  image?: string;
+  image: string | null;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type Product = {
-  id: string;
-  slug: string;
+  _id: string;
   name: string;
+  slug: string;
   description: string;
   price: number;
-  comparePrice?: number; // original price before discount
+  comparePrice: number | null; // original price before discount
   stock: number;
   images: string[];
   category: Category;
-  seller: {
-    id: string;
-    name: string;
-    avatar?: string;
+  seller: Omit<User, "id"> & {
+    _id: string;
   };
   rating: number;
   reviewCount: number;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type ProductFilters = {

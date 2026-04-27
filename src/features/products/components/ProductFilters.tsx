@@ -37,9 +37,9 @@ function ProductFilters() {
             All categories
           </label>
 
-          {categories?.map((cat) => (
+          {categories?.data?.map((cat) => (
             <label
-              key={cat.id}
+              key={cat._id}
               className="flex items-center gap-2 cursor-pointer py-1 text-sm"
             >
               <input

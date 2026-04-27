@@ -1,14 +1,11 @@
 import "server-only";
 
 import { cookies } from "next/headers";
-import { ACCESS_COOKIE } from "@/lib/auth/cookies";
-import {
-  verifyAccessToken,
-  type AccessTokenPayload,
-} from "@/lib/auth/jwt";
+import { verifyAccessToken, type AccessTokenPayload } from "@/lib/auth/jwt";
 import { ForbiddenError, UnauthorizedError } from "@/lib/api/errors";
 import type { Role } from "./roles";
 import { can, type Permission } from "./permissions";
+import { ACCESS_COOKIE } from "@/constants/CookiesKeys";
 
 export async function getCurrentUser(): Promise<AccessTokenPayload | null> {
   const store = await cookies();

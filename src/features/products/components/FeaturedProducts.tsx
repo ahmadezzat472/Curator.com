@@ -4,9 +4,12 @@ import ProductCard from "@/features/products/components/ProductCard";
 import { productsService } from "@/features/products/services";
 import Link from "next/link";
 import FeaturedProductsSkeleton from "./skeletons/FeaturedProductsSkeleton";
+import NoDataMessage from "@/components/shared/Feedback/NoDataMessage";
 
 async function FeaturedProducts() {
   const products = await productsService.getAll();
+
+  console.log(products);
 
   return (
     <section>
@@ -16,11 +19,15 @@ async function FeaturedProducts() {
           <Link href="/products">View all</Link>
         </Button>
       </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {products.data.slice(0, 8).map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      {products.data.length === 0 ? (
+        <NoDataMessage message="No featured products available at the moment." />
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {products.data.slice(0, 8).map((product) => (
+            <ProductCard key={product._id} product={product} />
+          ))}
+        </div>
+      )}
     </section>
   );
 }

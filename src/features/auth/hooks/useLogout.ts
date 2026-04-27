@@ -15,14 +15,14 @@ export function useLogout() {
       CookieService.clearAuth();
       queryClient.clear(); // wipe all cached queries
       toast.success("Logged out successfully");
-      router.push("/login");
+      router.push("/auth/login");
       router.refresh();
     },
     onError: () => {
       // Logout locally even if server call fails
       CookieService.clearAuth();
       queryClient.clear();
-      router.push("/login");
+      router.push("/auth/login");
       router.refresh();
     },
   });

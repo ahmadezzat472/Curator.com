@@ -2,9 +2,7 @@ import "server-only";
 
 import { cookies } from "next/headers";
 import { env } from "@/lib/config";
-
-export const ACCESS_COOKIE = "access_token";
-export const REFRESH_COOKIE = "refresh_token";
+import { ACCESS_COOKIE, REFRESH_COOKIE } from "@/constants/CookiesKeys";
 
 function parseDurationSeconds(duration: string): number {
   const match = duration.match(/^(\d+)([smhd])$/);

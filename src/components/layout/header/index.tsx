@@ -4,10 +4,12 @@ import { cookies } from "next/headers";
 import SearchBar from "./SearchBar";
 import UserMenu from "./UserMenu";
 import CartDrawer from "@/features/cart/components/CartDrawer";
+import {  } from "@/lib/auth/cookies";
+import { ACCESS_COOKIE } from "@/constants/CookiesKeys";
 
 async function Header() {
-  const username = (await cookies()).get("username")?.value;
-  const isLoggedIn = !!(await cookies()).get("token")?.value;
+  const cookieStore = await cookies();
+  const isLoggedIn = !!cookieStore.get(ACCESS_COOKIE)?.value;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
@@ -41,7 +43,7 @@ async function Header() {
           </div>
 
           {/* User menu — CLIENT: needs logout mutation */}
-          <UserMenu isLoggedIn={isLoggedIn} username={username} />
+          <UserMenu isLoggedIn={isLoggedIn} />
         </nav>
       </div>
     </header>

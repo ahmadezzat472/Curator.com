@@ -25,11 +25,11 @@ const RegisterForm = () => {
   });
 
   const onSubmit = (values: RegisterFormValues) => {
-    // Remove confirmPassword before sending to API
     const payload = {
       name: values.name,
       email: values.email,
       password: values.password,
+      role: values.role,
       phone: values.phone,
     };
     register_(payload);
@@ -121,6 +121,27 @@ const RegisterForm = () => {
         {errors.confirmPassword && (
           <InputError error={errors.confirmPassword.message} />
         )}
+      </div>
+
+      <div className="space-y-1.5">
+        <Label>Account type</Label>
+        <div className="grid grid-cols-2 gap-3">
+          {["customer", "vendor"].map((role) => (
+            <label
+              key={role}
+              className="flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-sm"
+            >
+              <input
+                type="radio"
+                value={role}
+                className="accent-primary"
+                {...register("role")}
+              />
+              <span className="capitalize">{role}</span>
+            </label>
+          ))}
+        </div>
+        {errors.role && <InputError error={errors.role.message} />}
       </div>
 
       <Button type="submit" className="w-full" disabled={isPending}>

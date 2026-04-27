@@ -11,30 +11,30 @@ const PROTECTED_ROUTES = [
   "/checkout",
 ];
 
-// Routes that require SELLER or ADMIN
-const SELLER_ROUTES = ["/seller"];
+// Routes that require VENDOR or ADMIN
+const VENDOR_ROUTES = ["/vendor"];
 
 // Routes that require ADMIN only
 const ADMIN_ROUTES = ["/admin"];
 
 // Routes only accessible when NOT logged in
-const AUTH_ROUTES = ["/login", "/register", "/forgot-password"];
+const AUTH_ROUTES = ["/auth/login", "/auth/register", "/auth/forgot-password"];
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const token = request.cookies.get("token")?.value || "ddd";
+  const token = request.cookies.get("accessToken")?.value;
   const role = request.cookies.get("role")?.value as UserRole | undefined;
 
   const isProtected = PROTECTED_ROUTES.some((r) => pathname.startsWith(r));
-  const isSeller = SELLER_ROUTES.some((r) => pathname.startsWith(r));
+  const isVendor = VENDOR_ROUTES.some((r) => pathname.startsWith(r));
   const isAdmin = ADMIN_ROUTES.some((r) => pathname.startsWith(r));
   const isAuthPage = AUTH_ROUTES.some((r) => pathname.startsWith(r));
 
   // Not logged in → redirect to login
-  if (!token && (isProtected || isSeller || isAdmin)) {
+  if (!token && (isProtected || isVendor || isAdmin)) {
     const url = request.nextUrl.clone();
-    url.pathname = "/login";
+    url.pathname = "/auth/login";
     url.searchParams.set("from", pathname); // so we can redirect back after login
     return NextResponse.redirect(url);
   }
@@ -44,13 +44,13 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  // Seller routes — only SELLER or ADMIN
-  if (isSeller && role !== "SELLER" && role !== "ADMIN") {
+  // Vendor routes — only VENDOR or ADMIN
+  if (isVendor && role !== "vendor" && role !== "admin") {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
   // Admin routes — only ADMIN
-  if (isAdmin && role !== "ADMIN") {
+  if (isAdmin && role !== "admin") {
     return NextResponse.redirect(new URL("/", request.url));
   }
 

@@ -9,10 +9,9 @@ import { FiLogOut, FiUser } from "react-icons/fi";
 
 type Props = {
   isLoggedIn: boolean;
-  username?: string;
 };
 
-function UserMenu({ isLoggedIn, username }: Props) {
+function UserMenu({ isLoggedIn }: Props) {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const { mutate: logout, isPending } = useLogout();
@@ -31,13 +30,13 @@ function UserMenu({ isLoggedIn, username }: Props) {
     return (
       <div className="flex items-center gap-2">
         <Link
-          href="/login"
+          href="/auth/login"
           className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
         >
           Sign in
         </Link>
         <Link
-          href="/register"
+          href="/auth/register"
           className="text-sm font-medium bg-primary text-primary-foreground px-3 py-1.5 rounded-md hover:bg-primary/90 transition-colors"
         >
           Sign up
@@ -60,9 +59,6 @@ function UserMenu({ isLoggedIn, username }: Props) {
 
       {open && (
         <div className="absolute right-4 top-full w-48 rounded-lg border bg-popover shadow-md py-1 z-50">
-          <span className="text-sm font-medium text-center max-w-25 truncate">
-            {username}
-          </span>
           {USER_LINK_PAGES.map(({ href, icon: Icon, label }) => (
             <Link
               key={href}

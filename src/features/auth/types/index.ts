@@ -1,12 +1,10 @@
-export type UserRole = "CUSTOMER" | "SELLER" | "ADMIN";
+export type UserRole = "customer" | "vendor" | "admin";
 
 export type User = {
   id: string;
   name: string;
   email: string;
   role: UserRole;
-  avatar?: string;
-  phone?: string;
   address?: Address;
 };
 
@@ -20,10 +18,10 @@ export type Address = {
 
 export type AuthResponse = {
   message: string;
-  username: string;
-  results: {
-    token: string;
-    role: UserRole;
+  statusCode: number;
+  data: {
+    accessToken: string;
+    refreshToken: string;
     user: User;
   };
 };
@@ -37,6 +35,7 @@ export type RegisterPayload = {
   name: string;
   email: string;
   password: string;
+  role: "customer" | "vendor";
   phone?: string;
 };
 

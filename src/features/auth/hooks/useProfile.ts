@@ -4,7 +4,9 @@ import CookieService from "@/services/cookies";
 import { authService } from "../services";
 
 export function useProfile() {
-  const isLoggedIn = !!CookieService.get("token");
+  const isLoggedIn = !!(
+    CookieService.get("accessToken") 
+  );
 
   return useApiQuery(QUERY_KEYS.auth.profile, () => authService.getProfile(), {
     enabled: isLoggedIn, // only fetch if token exists
