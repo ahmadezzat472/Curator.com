@@ -1,4 +1,5 @@
 import { BACKEND_BASE_URL } from "@/constants/BackendApisConfig";
+import { ACCESS_COOKIE } from "@/constants/CookiesKeys";
 import CookieService from "@/services/cookies";
 
 // Extend native RequestInit with Next.js fetch cache options
@@ -15,7 +16,7 @@ export async function api<T>(
 
   // Read token — works in Client Components and Server Components (via cookies())
   // CookieService.get uses js-cookie on client, which reads document.cookie
-  const token = CookieService.get("accessToken");
+  const token = CookieService.get(ACCESS_COOKIE);
 
   const headers: HeadersInit = {
     ...(token && { token: `${token}` }), // your backend expects "token" header

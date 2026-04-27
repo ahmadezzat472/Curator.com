@@ -4,9 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FiTrash2, FiMinus, FiPlus } from "react-icons/fi";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useCart } from "@/features/cart/hooks/useCart";
-import { useState } from "react";
 import { useUpdateCartItem } from "../hooks/useUpdateCartItem";
 import { useRemoveCartItem } from "../hooks/useRemoveCartItem";
 
@@ -14,8 +12,6 @@ function CartContent() {
   const { data: cart, isLoading } = useCart();
   const { mutate: updateItem } = useUpdateCartItem();
   const { mutate: removeItem, isPending: isRemoving } = useRemoveCartItem();
-
-  const [promoInput, setPromoInput] = useState("");
 
   if (isLoading) {
     return (
@@ -29,7 +25,7 @@ function CartContent() {
     );
   }
 
-  if (!cart || cart.items.length === 0) {
+  if (!cart || cart.data.items.length === 0) {
     return (
       <div className="container mx-auto px-4 py-20 text-center">
         <h1 className="text-2xl font-semibold mb-2">Your cart is empty</h1>
@@ -46,13 +42,13 @@ function CartContent() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-semibold mb-6">
-        Shopping cart ({cart.items.length})
+        Shopping cart ({cart.data.items.length})
       </h1>
 
-      <div className="grid lg:grid-cols-3 gap-8">
+      <div className="space-y-8">
         {/* Items */}
         <div className="lg:col-span-2 space-y-3">
-          {cart.items.map((item) => (
+          {cart.data.items.map((item) => (
             <div
               key={item.id}
               className="flex gap-4 p-4 rounded-xl border bg-card"
@@ -137,40 +133,11 @@ function CartContent() {
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Subtotal</span>
-                {/* <span>${cart.subtotal.toFixed(2)}</span> */}
               </div>
-              {/* {cart.discount > 0 && (
-                <div className="flex justify-between text-green-600">
-                  <span>Discount</span>
-                  <span>-${cart.discount.toFixed(2)}</span>
-                </div>
-              )} */}
               <div className="flex justify-between font-semibold text-base border-t pt-2">
                 <span>Total</span>
-                <span>${cart.total.toFixed(2)}</span>
+                <span>${cart.data.total.toFixed(2)}</span>
               </div>
-            </div>
-
-            {/* Promo code */}
-            <div className="flex gap-2">
-              <Input
-                placeholder="Promo code"
-                value={promoInput}
-                onChange={(e) => setPromoInput(e.target.value.toUpperCase())}
-                className="h-9 text-sm uppercase"
-              />
-              {/* <Button
-                size="sm"
-                variant="outline"
-                disabled={!promoInput || isApplyingPromo}
-                onClick={() => {
-                  applyPromo(promoInput, {
-                    onSuccess: () => setPromoInput(""),
-                  });
-                }}
-              >
-                {isApplyingPromo ? "..." : "Apply"}
-              </Button> */}
             </div>
 
             <Button className="w-full" asChild>

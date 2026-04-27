@@ -9,8 +9,6 @@ import NoDataMessage from "@/components/shared/Feedback/NoDataMessage";
 async function FeaturedProducts() {
   const products = await productsService.getAll();
 
-  console.log(products);
-
   return (
     <section>
       <div className="flex items-center justify-between mb-10">

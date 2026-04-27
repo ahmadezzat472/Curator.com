@@ -19,10 +19,10 @@ function CartDrawer() {
     <Drawer direction="right">
       <DrawerTrigger asChild>
         <Button size={"icon"} variant="outline">
-          <FiShoppingCart  />
+          <FiShoppingCart />
         </Button>
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className=" max-w-xl!">
         <DrawerHeader>
           <DrawerTitle>Move Goal</DrawerTitle>
           <DrawerDescription>Set your daily activity goal.</DrawerDescription>

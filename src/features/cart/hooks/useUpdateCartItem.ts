@@ -15,6 +15,7 @@ export function useUpdateCartItem() {
       cartService.updateItem(payload),
     onSuccess: (updatedCart) => {
       queryClient.setQueryData(QUERY_KEYS.cart.mine, updatedCart);
+      toast.success("Quantity updated");
     },
     onError: (error) => {
       toast.error(error?.message ?? "Could not update quantity");
