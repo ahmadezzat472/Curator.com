@@ -12,6 +12,8 @@ export function useRegister() {
     mutationFn: (payload: RegisterPayload) => authService.register(payload),
     onSuccess: (data) => {
       const { results, username } = data;
+      console.log(data);
+      
 
       CookieService.set("token", results.token);
       CookieService.set("role", results.role);
@@ -22,6 +24,8 @@ export function useRegister() {
       router.refresh();
     },
     onError: (error) => {
+      console.log(error);
+      
       toast.error(error?.message ?? "Registration failed. Please try again.");
     },
   });
