@@ -2,16 +2,15 @@ import type { Metadata } from "next";
 import { productsService } from "@/features/products/services";
 import ProductDetailContainer from "@/features/products/pages/ProductDetailContainer";
 
-type Props = { params: Promise<{ slug: string }> };
+type Props = { params: Promise<{ id: string }> };
 
-//** metadata
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
-    const { slug } = await params;
-    const product = await productsService.getBySlug(slug);
+    const { id } = await params;
+    const { data } = await productsService.getById(id);
     return {
-      title: product.name,
-      description: product.description.slice(0, 160),
+      title: data.name,
+      description: data.description.slice(0, 160),
     };
   } catch {
     return { title: "Product not found" };
@@ -19,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function ProductDetailPage({ params }: Props) {
-  const { slug } = await params;
+  const { id } = await params;
 
-  return <ProductDetailContainer slug={slug} />;
+  return <ProductDetailContainer id={id} />;
 }

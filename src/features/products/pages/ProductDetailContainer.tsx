@@ -7,48 +7,21 @@ import { productsService } from "../services";
 // import { ReviewsSection } from "@/features/reviews/components/ReviewsSection";
 
 type ProductDetailContainerProps = {
-  slug: string;
+  id: string;
 };
 
-async function getProduct(slug: string) {
+async function getProduct(id: string) {
   try {
-    return await productsService.getBySlug(slug);
+    return await productsService.getById(id);
   } catch {
     notFound();
   }
 }
 
 export default async function ProductDetailContainer({
-  slug,
+  id,
 }: ProductDetailContainerProps) {
-  // const product = await getProduct(slug);
-  const product = {
-    id: "1",
-    slug: "wireless-headphones",
-    name: "Premium Wireless Headphones",
-    description:
-      "High-quality sound with noise cancellation, 30-hour battery life, and comfortable padding for all-day wear.",
-    price: 199.99,
-    comparePrice: 299.99,
-    stock: 50,
-    images: [
-      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop",
-      "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=500&h=500&fit=crop",
-    ],
-    category: {
-      id: "electronics",
-      name: "Electronics",
-      slug: "electronics",
-    },
-    seller: {
-      id: "seller1",
-      name: "TechHub",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=TechHub",
-    },
-    rating: 4.8,
-    reviewCount: 234,
-    isFeatured: true,
-  };
+  const { data: product } = await getProduct(id);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -56,7 +29,7 @@ export default async function ProductDetailContainer({
         <div className="space-y-3">
           <div className="relative aspect-square rounded-xl overflow-hidden bg-muted">
             <Image
-              src={product.images[0]}
+              src={product.images[0] || "/no-img.png"}
               alt={product.name}
               fill
               priority

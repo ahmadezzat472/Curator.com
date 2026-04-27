@@ -39,8 +39,23 @@ const CheckoutForm = () => {
   });
 
   const onSubmit = (values: CheckoutFormValues) => {
+    if (!cart?.data?.items?.length) {
+      return;
+    }
+
     const { paymentMethod, ...address } = values;
+    const items = cart.data.items.map((item) => ({
+      product: item.productId,
+      name: item.name,
+      price: item.price,
+      quantity: item.quantity,
+      image: item.image,
+      slug: item.slug,
+    }));
+
     placeOrder({
+      items,
+      total: cart.data.total,
       paymentMethod,
       shippingAddress: address,
     });
@@ -189,7 +204,7 @@ const CheckoutForm = () => {
         <section className="rounded-lg border p-4 space-y-3 text-sm">
           <h2 className="font-medium">Order summary</h2>
           <div className="flex justify-between text-muted-foreground">
-            <span>Subtotal ({cart.items.length} items)</span>
+            <span>Subtotal ({cart.data.items.length} items)</span>
             {/* <span>${cart.subtotal.toFixed(2)}</span> */}
           </div>
           {/* {cart.discount > 0 && (
@@ -200,7 +215,7 @@ const CheckoutForm = () => {
           )} */}
           <div className="flex justify-between font-medium border-t pt-3">
             <span>Total</span>
-            <span>${cart.total.toFixed(2)}</span>
+            <span>${cart.data.total.toFixed(2)}</span>
           </div>
         </section>
       )}
@@ -208,11 +223,11 @@ const CheckoutForm = () => {
       <Button
         type="submit"
         className="w-full h-12 text-base"
-        disabled={isPending || !cart?.items.length}
+        disabled={isPending || !cart?.data.items.length}
       >
         {isPending
           ? "Placing order..."
-          : `Place order · $${cart?.total.toFixed(2) ?? "0.00"}`}
+          : `Place order · $${cart?.data.total.toFixed(2) ?? "0.00"}`}
       </Button>
     </form>
   );

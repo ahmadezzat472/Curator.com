@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import type { UserRole } from "@/features/auth/types";
+import { ACCESS_COOKIE } from "./constants/CookiesKeys";
 
 // Routes that require login (any role)
 const PROTECTED_ROUTES = [
@@ -23,7 +24,7 @@ const AUTH_ROUTES = ["/auth/login", "/auth/register", "/auth/forgot-password"];
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const token = request.cookies.get("accessToken")?.value;
+  const token = request.cookies.get(ACCESS_COOKIE)?.value;
   const role = request.cookies.get("role")?.value as UserRole | undefined;
 
   const isProtected = PROTECTED_ROUTES.some((r) => pathname.startsWith(r));
