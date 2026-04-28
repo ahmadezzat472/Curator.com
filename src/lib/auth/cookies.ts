@@ -13,12 +13,27 @@ function parseDurationSeconds(duration: string): number {
   return parseInt(match[1], 10) * mul;
 }
 
+function normalizeCookieDomain(raw?: string): string | undefined {
+  if (!raw) return undefined;
+  const cleaned = raw
+    .trim()
+    .replace(/^https?:\/\//, "")
+    .replace(/\/.*$/, "")
+    .replace(/:\d+$/, "");
+  if (!cleaned || cleaned === "localhost" || cleaned === "127.0.0.1") {
+    return undefined;
+  }
+  return cleaned;
+}
+
 function commonOptions() {
+  const domain = normalizeCookieDomain(env.COOKIE_DOMAIN);
+
   return {
     httpOnly: true,
     sameSite: "lax" as const,
     secure: env.COOKIE_SECURE,
-    domain: env.COOKIE_DOMAIN || undefined,
+    ...(domain ? { domain } : {}),
     path: "/",
   };
 }

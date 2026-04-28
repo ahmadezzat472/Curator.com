@@ -17,7 +17,7 @@ const STATUS_STYLES: Record<OrderStatus, string> = {
 };
 
 export default function OrdersPage() {
-  const [page, setPage] = useState(1);
+  const [page, ] = useState(1);
   const { data, isLoading } = useMyOrders(page);
   const { mutate: cancelOrder, isPending: isCancelling } = useCancelOrder();
 
@@ -31,7 +31,7 @@ export default function OrdersPage() {
     );
   }
 
-  if (!data?.results.length) {
+  if (!data?.data.length) {
     return (
       <div className="text-center py-12">
         <h2 className="text-lg font-medium mb-2">No orders yet</h2>
@@ -50,12 +50,11 @@ export default function OrdersPage() {
       <h1 className="text-xl font-semibold">My Orders</h1>
 
       <div className="space-y-3">
-        {data.results.map((order: Order) => (
+        {data.data.map((order: Order) => (
           <div
             key={order.id}
             className="rounded-xl border bg-card p-4 space-y-3"
           >
-            {/* Header row */}
             <div className="flex items-center justify-between flex-wrap gap-2">
               <div>
                 <p className="text-xs text-muted-foreground">Order ID</p>
@@ -70,7 +69,6 @@ export default function OrdersPage() {
               </span>
             </div>
 
-            {/* Items preview */}
             <div className="text-sm text-muted-foreground">
               {order.items.slice(0, 2).map((item) => (
                 <span key={item.id}>
@@ -84,7 +82,6 @@ export default function OrdersPage() {
               {order.items.length > 2 && ` +${order.items.length - 2} more`}
             </div>
 
-            {/* Footer row */}
             <div className="flex items-center justify-between flex-wrap gap-2 border-t pt-3">
               <div>
                 <p className="text-xs text-muted-foreground">
@@ -116,7 +113,7 @@ export default function OrdersPage() {
       </div>
 
       {/* Pagination */}
-      {data.pages > 1 && (
+      {/* {data.pages > 1 && (
         <div className="flex items-center justify-center gap-2">
           <Button
             size="sm"
@@ -138,7 +135,7 @@ export default function OrdersPage() {
             Next
           </Button>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

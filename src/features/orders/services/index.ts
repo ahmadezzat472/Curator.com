@@ -1,9 +1,9 @@
 import { api } from "@/services/api";
-import type { Order, OrdersResponse, PlaceOrderPayload } from "../types";
+import type { Order, PlaceOrderPayload } from "../types";
 
 export const ordersService = {
-  getMyOrders: (page = 1): Promise<OrdersResponse> =>
-    api<OrdersResponse>(`orders?page=${page}`),
+  getMyOrders: (page = 1): Promise<ApiResponse<Order[]>> =>
+    api<ApiResponse<Order[]>>(`orders?page=${page}`),
 
   getOrderById: (id: string): Promise<Order> => api<Order>(`orders/${id}`),
 
@@ -17,8 +17,8 @@ export const ordersService = {
     api<Order>(`orders/${id}/cancel`, { method: "PUT" }),
 
   // Admin only
-  getAllOrders: (page = 1): Promise<OrdersResponse> =>
-    api<OrdersResponse>(`admin/orders?page=${page}`),
+  getAllOrders: (page = 1): Promise<ApiResponse<Order[]>> =>
+    api<ApiResponse<Order[]>>(`admin/orders?page=${page}`),
 
   updateOrderStatus: (id: string, status: string): Promise<Order> =>
     api<Order>(`admin/orders/${id}/status`, {
