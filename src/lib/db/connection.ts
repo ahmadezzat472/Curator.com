@@ -28,12 +28,10 @@ export async function connectDB(): Promise<Mongoose> {
 
   if (!cached.promise) {
     cached.promise = mongoose.connect(env.MONGODB_URI, {
-      bufferCommands: false,
+      bufferCommands: true,
       maxPoolSize: 10,
-      minPoolSize: 2,
-      serverSelectionTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 30000,
       socketTimeoutMS: 45000,
-      family: 4,
     });
 
     console.log("[mongo] connecting...");
