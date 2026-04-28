@@ -25,11 +25,11 @@ const RegisterForm = () => {
   });
 
   const onSubmit = (values: RegisterFormValues) => {
-    // Remove confirmPassword before sending to API
     const payload = {
       name: values.name,
       email: values.email,
       password: values.password,
+      role: values.role,
       phone: values.phone,
     };
     register_(payload);
@@ -37,7 +37,6 @@ const RegisterForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
-      {/* Name */}
       <div className="space-y-1.5">
         <Label htmlFor="name">Full name</Label>
         <div className="relative">
@@ -58,7 +57,6 @@ const RegisterForm = () => {
         {errors.name && <InputError error={errors.name.message} />}
       </div>
 
-      {/* Email */}
       <div className="space-y-1.5">
         <Label htmlFor="email">Email address</Label>
         <div className="relative">
@@ -79,7 +77,6 @@ const RegisterForm = () => {
         {errors.email && <InputError error={errors.email.message} />}
       </div>
 
-      {/* Password */}
       <div className="space-y-1.5">
         <Label htmlFor="password">Password</Label>
         <div className="relative">
@@ -100,7 +97,6 @@ const RegisterForm = () => {
         {errors.password && <InputError error={errors.password.message} />}
       </div>
 
-      {/* Confirm Password */}
       <div className="space-y-1.5">
         <Label htmlFor="confirmPassword">Confirm password</Label>
         <div className="relative">
@@ -123,8 +119,34 @@ const RegisterForm = () => {
         )}
       </div>
 
-      <Button type="submit" className="w-full" disabled={isPending}>
-        {isPending ? "Creating account..." : "Create account"}
+      <div className="space-y-1.5">
+        <Label>Account type</Label>
+        <div className="grid grid-cols-2 gap-3">
+          {["customer", "vendor"].map((role) => (
+            <label
+              key={role}
+              className="flex cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-sm"
+            >
+              <input
+                type="radio"
+                value={role}
+                className="accent-primary"
+                {...register("role")}
+              />
+              <span className="capitalize">{role}</span>
+            </label>
+          ))}
+        </div>
+        {errors.role && <InputError error={errors.role.message} />}
+      </div>
+
+      <Button
+        type="submit"
+        className="w-full"
+        disabled={isPending}
+        isLoading={isPending}
+      >
+        Create account
       </Button>
 
       <p className="text-center text-sm text-muted-foreground">

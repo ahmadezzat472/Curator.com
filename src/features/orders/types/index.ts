@@ -24,6 +24,15 @@ export type OrderItem = {
   slug: string;
 };
 
+export type PlaceOrderItem = {
+  product: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image: string;
+  slug: string;
+};
+
 export type Order = {
   id: string;
   status: OrderStatus;
@@ -45,13 +54,16 @@ export type Order = {
   updatedAt: string;
 };
 
-export type OrdersResponse = {
-  results: Order[];
-  total: number;
-  pages: number;
-};
-
 export type PlaceOrderPayload = {
+  items: PlaceOrderItem[];
+  total: number;
   paymentMethod: PaymentMethod;
   shippingAddress: Order["shippingAddress"];
+};
+
+export type OrdersResponse = {
+  results: Order[];
+  pages: number;
+  currentPage: number;
+  total?: number;
 };

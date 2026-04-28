@@ -2,7 +2,7 @@ import ProductCard from "./ProductCard";
 import { productsService } from "../services";
 import SuspenseLayoutHOC from "@/components/hoc/SuspenseLayoutHOC";
 import type { ProductFilters } from "../types";
-import ProductGridSkeleton from "./ProductGridSkeleton";
+import ProductGridSkeleton from "./skeletons/ProductGridSkeleton";
 import NoDataMessage from "@/components/shared/Feedback/NoDataMessage";
 
 async function ProductGrid({ filters }: { filters: ProductFilters }) {
@@ -17,7 +17,7 @@ async function ProductGrid({ filters }: { filters: ProductFilters }) {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
       {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
+        <ProductCard key={product._id} product={product} />
       ))}
     </div>
   );

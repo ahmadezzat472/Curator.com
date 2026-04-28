@@ -2,9 +2,7 @@ import "server-only";
 
 import { cookies } from "next/headers";
 import { env } from "@/lib/config";
-
-export const ACCESS_COOKIE = "access_token";
-export const REFRESH_COOKIE = "refresh_token";
+import { ACCESS_COOKIE, REFRESH_COOKIE } from "@/constants/CookiesKeys";
 
 function parseDurationSeconds(duration: string): number {
   const match = duration.match(/^(\d+)([smhd])$/);
@@ -15,12 +13,27 @@ function parseDurationSeconds(duration: string): number {
   return parseInt(match[1], 10) * mul;
 }
 
+function normalizeCookieDomain(raw?: string): string | undefined {
+  if (!raw) return undefined;
+  const cleaned = raw
+    .trim()
+    .replace(/^https?:\/\//, "")
+    .replace(/\/.*$/, "")
+    .replace(/:\d+$/, "");
+  if (!cleaned || cleaned === "localhost" || cleaned === "127.0.0.1") {
+    return undefined;
+  }
+  return cleaned;
+}
+
 function commonOptions() {
+  const domain = normalizeCookieDomain(env.COOKIE_DOMAIN);
+
   return {
     httpOnly: true,
     sameSite: "lax" as const,
     secure: env.COOKIE_SECURE,
-    domain: env.COOKIE_DOMAIN || undefined,
+    ...(domain ? { domain } : {}),
     path: "/",
   };
 }

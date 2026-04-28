@@ -13,17 +13,19 @@ export const EnvSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]),
   NEXT_PUBLIC_APP_URL: z.url(),
 
-  S3_ENDPOINT: z.url(),
-  S3_REGION: z.string().min(1),
-  S3_BUCKET: z.string().min(1),
-  S3_ACCESS_KEY_ID: z.string().min(1),
-  S3_SECRET_ACCESS_KEY: z.string().min(1),
+  // S3 is optional (for file uploads)
+  S3_ENDPOINT: z.string().url().optional(),
+  S3_REGION: z.string().min(1).optional(),
+  S3_BUCKET: z.string().min(1).optional(),
+  S3_ACCESS_KEY_ID: z.string().min(1).optional(),
+  S3_SECRET_ACCESS_KEY: z.string().min(1).optional(),
 
-  SMTP_HOST: z.string().min(1),
-  SMTP_PORT: z.string().regex(/^\d+$/),
-  SMTP_USER: z.string(),
-  SMTP_PASS: z.string(),
-  MAIL_FROM: z.string().min(1),
+  // SMTP is optional (for email notifications)
+  SMTP_HOST: z.string().min(1).optional(),
+  SMTP_PORT: z.string().regex(/^\d+$/).optional(),
+  SMTP_USER: z.string().optional(),
+  SMTP_PASS: z.string().optional(),
+  MAIL_FROM: z.string().min(1).optional(),
 });
 
 const parsed = EnvSchema.safeParse(process.env);

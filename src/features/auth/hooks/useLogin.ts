@@ -13,21 +13,18 @@ export function useLogin() {
   return useApiMutation({
     mutationFn: (payload: LoginPayload) => authService.login(payload),
     onSuccess: (data) => {
-      const { results, username } = data;
-
-      CookieService.set("token", results.token);
-      CookieService.set("role", results.role);
-      CookieService.set("username", username);
+      const results = data.data;
+      CookieService.set("role", results.user.role);
 
       toast.success(`Welcome back, ${results.user.name}!`);
 
       const redirectMap: Record<string, string> = {
-        ADMIN: "/admin/dashboard",
-        SELLER: "/seller/dashboard",
-        CUSTOMER: "/",
+        admin: "/admin/dashboard",
+        vendor: "/vendor",
+        customer: "/",
       };
-      router.push(redirectMap[results.role] ?? "/");
-      router.refresh(); // re-run Server Components with the new cookie
+      router.push(redirectMap[results.user.role] ?? "/");
+      // router.refresh(); // re-run Server Components with the new cookie
     },
     onError: (error) => {
       toast.error(error?.message ?? "Login failed. Please try again.");

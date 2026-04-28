@@ -4,6 +4,7 @@ import { useApiMutation } from "@/hooks/useApiMutation";
 import { RegisterPayload } from "../types";
 import { authService } from "../services";
 import CookieService from "@/services/cookies";
+import { formatValidationErrors } from "@/lib/formatValidationErrors";
 
 export function useRegister() {
   const router = useRouter();
@@ -11,18 +12,22 @@ export function useRegister() {
   return useApiMutation({
     mutationFn: (payload: RegisterPayload) => authService.register(payload),
     onSuccess: (data) => {
-      const { results, username } = data;
+      const results = data.data;
 
-      CookieService.set("token", results.token);
-      CookieService.set("role", results.role);
-      CookieService.set("username", username);
+      CookieService.set("role", results.user.role);
 
       toast.success("Account created successfully!");
       router.push("/");
       router.refresh();
     },
     onError: (error) => {
-      toast.error(error?.message ?? "Registration failed. Please try again.");
+      const apiError = error as ApiError;
+      const description = formatValidationErrors(apiError);
+
+      toast.error(
+        apiError.message ?? "Registration failed. Please try again.",
+        description ? { description } : undefined,
+      );
     },
   });
 }

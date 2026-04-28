@@ -2,7 +2,7 @@ import { api } from "@/services/api";
 import type { Cart, AddToCartPayload, UpdateCartItemPayload } from "../types";
 
 export const cartService = {
-  getCart: (): Promise<Cart> => api<Cart>("cart"),
+  getCart: (): Promise<ApiResponse<Cart>> => api<ApiResponse<Cart>>("cart"),
 
   addItem: (payload: AddToCartPayload): Promise<Cart> =>
     api<Cart>("cart/items", {
@@ -12,7 +12,7 @@ export const cartService = {
 
   updateItem: ({ itemId, quantity }: UpdateCartItemPayload): Promise<Cart> =>
     api<Cart>(`cart/items/${itemId}`, {
-      method: "PUT",
+      method: "PATCH",
       body: JSON.stringify({ quantity }),
     }),
 

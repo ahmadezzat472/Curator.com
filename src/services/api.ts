@@ -1,4 +1,5 @@
 import { BACKEND_BASE_URL } from "@/constants/BackendApisConfig";
+import { ACCESS_COOKIE } from "@/constants/CookiesKeys";
 import CookieService from "@/services/cookies";
 
 // Extend native RequestInit with Next.js fetch cache options
@@ -11,10 +12,11 @@ export async function api<T>(
   options: ApiOptions = {},
 ): Promise<T> {
   const isFormData = options.body instanceof FormData;
+  const normalizedEndpoint = endpoint.replace(/^\/+/, "");
 
   // Read token — works in Client Components and Server Components (via cookies())
   // CookieService.get uses js-cookie on client, which reads document.cookie
-  const token = CookieService.get("token");
+  const token = CookieService.get(ACCESS_COOKIE);
 
   const headers: HeadersInit = {
     ...(token && { token: `${token}` }), // your backend expects "token" header
@@ -26,7 +28,7 @@ export async function api<T>(
   };
 
   const response = await fetch(
-    `${BACKEND_BASE_URL}/${endpoint}`.replace(/([^:]\/)\/+/g, "$1"), // prevent double slashes
+    `${BACKEND_BASE_URL}/${normalizedEndpoint}`.replace(/([^:]\/)\/+/g, "$1"), // prevent double slashes
     {
       ...options,
       method: options.method ?? "GET",
@@ -38,13 +40,20 @@ export async function api<T>(
   // 401 — token expired or invalid
   if (response.status === 401) {
     CookieService.clearAuth();
-    if (typeof window !== "undefined") {
-      window.location.href = "/login";
+
+    const isAuthEndpoint =
+      /^auth\/(signin|signup|forgot-password|reset-password|refresh)$/.test(
+        normalizedEndpoint,
+      );
+
+    if (typeof window !== "undefined" && !isAuthEndpoint) {
+      window.location.href = "/auth/login";
+
+      throw {
+        message: "Session expired, please login again",
+        statusCode: 401,
+      } as ApiError;
     }
-    throw {
-      message: "Session expired, please login again",
-      statusCode: 401,
-    } as ApiError;
   }
 
   // All other HTTP errors

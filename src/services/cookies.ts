@@ -1,3 +1,4 @@
+import { ACCESS_COOKIE, REFRESH_COOKIE } from "@/constants/CookiesKeys";
 import Cookies from "js-cookie";
 
 const CookieService = {
@@ -23,9 +24,9 @@ const CookieService = {
   },
 
   clearAuth: (): void => {
-    Cookies.remove("token", { path: "/" });
+    Cookies.remove(ACCESS_COOKIE, { path: "/" });
+    Cookies.remove(REFRESH_COOKIE, { path: "/" });
     Cookies.remove("role", { path: "/" });
-    Cookies.remove("username", { path: "/" });
   },
 };
 

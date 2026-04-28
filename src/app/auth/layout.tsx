@@ -1,5 +1,3 @@
-"use client";
-
 import AuthCardWrapper from "@/features/auth/components/AuthCardWrapper";
 import type { ReactNode } from "react";
 

@@ -1,11 +1,8 @@
-// No "use client" — this is a Server Component
-// SERVER because: pure display, no state, no events, SEO matters
-
 import Link from "next/link";
 import Image from "next/image";
 import type { Product } from "../types";
-// import { AddToCartButton } from "./AddToCartButton"; // Client island
-// import { WishlistButton } from "./WishlistButton"; // Client island
+import { AddToCartButton } from "@/features/cart/components/AddToCartButton";
+import { WishlistButton } from "@/features/wishlist/WishlistButton";
 
 type Props = {
   product: Product;
@@ -22,11 +19,11 @@ function ProductCard({ product }: Props) {
     <div className="group relative flex flex-col rounded-xl border bg-card overflow-hidden hover:shadow-md transition-shadow">
       {/* Image */}
       <Link
-        href={`/products/${product.slug}`}
+        href={`/products/${product._id}`}
         className="relative aspect-square overflow-hidden bg-muted"
       >
         <Image
-          src={product.images[0]}
+          src={product.images[0] || "/no-img.png"}
           alt={product.name}
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
@@ -39,7 +36,7 @@ function ProductCard({ product }: Props) {
         )}
         {/* Wishlist — Client island inside Server Component */}
         <div className="absolute top-2 right-2">
-          {/* <WishlistButton productId={product.id} /> */}
+          <WishlistButton productId={product._id} />
         </div>
       </Link>
 
@@ -75,10 +72,10 @@ function ProductCard({ product }: Props) {
         </div>
 
         {/* Add to cart — Client island */}
-        {/* <AddToCartButton
-          productId={product.id}
+        <AddToCartButton
+          productId={product._id}
           disabled={product.stock === 0}
-        /> */}
+        />
       </div>
     </div>
   );
