@@ -14,7 +14,7 @@ type Props = {
 function UserMenu({ isLoggedIn }: Props) {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const { logout } = useLogout();
+  const { mutate: logout, isPending } = useLogout();
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -79,6 +79,7 @@ function UserMenu({ isLoggedIn }: Props) {
               logout();
             }}
             variant={"destructive"}
+            isLoading={isPending}
           >
             <FiLogOut size={14} />
             Log out

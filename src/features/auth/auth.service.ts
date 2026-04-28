@@ -72,9 +72,15 @@ export async function login(data: LoginDto) {
   return { user: toPublicUser(user), ...tokens };
 }
 
+export async function logout(userId: string) {
+  await authRepository.invalidateRefreshTokens(userId);
+  return { message: "Logged out successfully" };
+}
+
 export const authService = {
   register,
   login,
+  logout,
   issueTokens,
   toPublicUser,
 };
