@@ -60,3 +60,10 @@ export type PlaceOrderPayload = {
   paymentMethod: PaymentMethod;
   shippingAddress: Order["shippingAddress"];
 };
+
+export type OrdersResponse = {
+  results: Order[];
+  pages: number;
+  currentPage: number;
+  total?: number;
+};
