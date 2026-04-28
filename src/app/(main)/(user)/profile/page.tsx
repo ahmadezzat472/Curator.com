@@ -64,7 +64,6 @@ export default function ProfilePage() {
     if (user) {
       reset({
         name: user.name,
-        phone: user.phone ?? "",
         street: user.address?.street ?? "",
         city: user.address?.city ?? "",
         state: user.address?.state ?? "",
