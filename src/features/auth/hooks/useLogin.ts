@@ -20,7 +20,7 @@ export function useLogin() {
 
       const redirectMap: Record<string, string> = {
         admin: "/admin/dashboard",
-        vendor: "/",
+        vendor: "/vendor",
         customer: "/",
       };
       router.push(redirectMap[results.user.role] ?? "/");

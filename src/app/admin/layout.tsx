@@ -8,7 +8,6 @@ const ADMIN_LINKS = [
   { href: "/admin/products", label: "Products" },
   { href: "/admin/orders", label: "Orders" },
   { href: "/admin/categories", label: "Categories" },
-  { href: "/admin/banners", label: "Banners" },
 ];
 
 export default function AdminLayout({

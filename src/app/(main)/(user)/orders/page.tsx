@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import type { OrderStatus } from "@/features/orders/types";
+import type { Order, OrderStatus } from "@/features/orders/types";
 import { useMyOrders } from "@/features/orders/hooks/useMyOrders";
 import { useCancelOrder } from "@/features/orders/hooks/useCancelOrder";
 
@@ -50,7 +50,7 @@ export default function OrdersPage() {
       <h1 className="text-xl font-semibold">My Orders</h1>
 
       <div className="space-y-3">
-        {data.results.map((order) => (
+        {data.results.map((order: Order) => (
           <div
             key={order.id}
             className="rounded-xl border bg-card p-4 space-y-3"
