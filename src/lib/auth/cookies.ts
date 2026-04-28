@@ -14,11 +14,15 @@ function parseDurationSeconds(duration: string): number {
 }
 
 function commonOptions() {
+  const rawDomain = env.COOKIE_DOMAIN?.trim();
+  const useDomain =
+    !!rawDomain && rawDomain !== "localhost" && rawDomain !== "127.0.0.1";
+
   return {
     httpOnly: true,
     sameSite: "lax" as const,
     secure: env.COOKIE_SECURE,
-    domain: env.COOKIE_DOMAIN || undefined,
+    ...(useDomain ? { domain: rawDomain } : {}),
     path: "/",
   };
 }
